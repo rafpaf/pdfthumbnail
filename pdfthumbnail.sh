@@ -9,7 +9,7 @@ convert -crop 500x500 +repage $png $png-box%02d.png
 
 # Which box has more black pixels than any other?
 find . | grep $png-box.*png | while read boxfile; do
-    echo -n "$boxfile"$'\t' >> temp_box_data
+    echo -n "$boxfile"$'\t' >> $png-temp_box_data
     convert $boxfile -format %c histogram:info: | grep black | cut -d ":" -f 1 | tr -d ' ' >> $png-temp_box_data
 done
 best_thumbnail=`cat $png-temp_box_data | sort -bgrk2 --field-separator=$'\t' | head -n 1 | cut -d $'\t' -f 1`
